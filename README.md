@@ -11,3 +11,10 @@ This repo is an attempt to document specific time-bound experiments related to A
 I expect repeated experiments over time to demonstrate different results. Hopefully better results.
 
 We'll see where this goes.
+
+
+# Experiments
+
+- [20250528 using chat gpt 4o to generate CounterStrings](counterstrings/generating/20250528-gpt-40-generate-counterstring.md)
+- [20250529 using copilot and Chat GPT 401 to generate CounterString code](counterstrings/generating/20250529-copilot-gpt-4-1-generate-code.md)
+- [20250529 using copilot and Chat GPT 401 to generate CounterStrings without code](counterstrings/generating/20250529-copilot-gpt-4-1-generate-string.md)
