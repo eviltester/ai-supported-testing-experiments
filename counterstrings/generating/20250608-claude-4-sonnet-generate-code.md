@@ -1,4 +1,4 @@
-# Using Claude.ai 4 web to generate a CounterString directly without using code
+# Using Claude.ai 4 web to generate a CounterString  using code
 
 ## Experiment Introduction
 
@@ -14,7 +14,7 @@ You cannot trust the generated code, it must have test and must be reviewed thor
 
 # Transcript
 
-- session can be found online [here](https://claude.ai/public/artifacts/494e4bec-3db2-4654-b722-741a1c39ed21)
+- session can be found online [here](https://claude.ai/share/2e1edbd6-07e2-4905-9cba-c22b9ed7b865)
 
 v12 eventually generated working code.
 
