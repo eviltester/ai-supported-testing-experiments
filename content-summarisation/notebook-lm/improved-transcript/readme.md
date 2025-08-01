@@ -126,3 +126,36 @@ Provide the final formatted transcript as a cleanly organized text document, wit
 ```
 
 Much better. Very readable. Sampling of text suggests its accurate enough for my purposes.
+
+## Video showing this in action
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/to8oGvlDmbY?si=iATCaD8AMgLLFAFa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## Other Youtube Tools
+
+### In-built subtitles
+
+- visit the video page
+- open up the description
+- click to show the transcript
+- read through the transcript and click on points that seemed interesting
+
+### Tactiq.io
+
+https://tactiq.io/tools/youtube-transcript
+
+Paste in link to video and shows easy to read transcript
+
+### Kome.ai
+
+https://kome.ai/tools/youtube-transcript-generator
+
+Shows transcript without times. No video shown.
+
+### YouTubeTranscript.com
+
+https://youtubetotranscript.com/transcript
+
+Can be a bit ad heavy, but shows transcript text without the times.
+
+
