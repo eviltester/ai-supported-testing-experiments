@@ -33,9 +33,11 @@ I used the `generate` api entry point in the client
 The prompt I provided:
 
 ---
+
 TASK: Summarize the main topics discussed in the following podcast transcript. Provide a concise summary with key points for the reader. Format the summary using bullets and headings.
 
 PODCAST TRANSCRIPT: 
+
 ---
 
 And after the `PODCAST TRANSCRIPT:` I add the transcript text.
