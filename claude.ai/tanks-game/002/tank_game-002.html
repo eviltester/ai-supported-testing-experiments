@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Tank Arena</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a1a2e;
+            color: white;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        canvas {
+            border: 2px solid #16213e;
+            background: #0f3460;
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
+        }
+        
+        .controls {
+            margin-top: 10px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        .score {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #00ff41;
+        }
+    </style>
+</head>
+<body>
+    <div class="score">Score: <span id="score">0</span> | Enemies: <span id="enemies">0</span></div>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div class="controls">
+        Use arrow keys to move and rotate | SPACE to shoot
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const enemiesElement = document.getElementById('enemies');
+
+        // Game state
+        let score = 0;
+        let gameRunning = true;
+        let lastEnemySpawn = 0;
+        let keys = {};
+        
+        // Enemy colors array
+        const enemyColors = ['#ff4757', '#ff6348', '#ff9ff3', '#54a0ff', '#5f27cd', '#00d2d3', '#ff9f43', '#10ac84'];
+
+        // Player tank
+        const player = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            angle: 0,
+            speed: 0,
+            maxSpeed: 3,
+            acceleration: 0.2,
+            friction: 0.9,
+            size: 20,
+            color: '#00ff41'
+        };
+
+        // Game objects arrays
+        const enemies = [];
+        const bullets = [];
+        const enemyBullets = [];
+
+        // Tank class for enemies
+        class Tank {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.angle = Math.random() * Math.PI * 2;
+                this.speed = 0;
+                this.maxSpeed = 1.5;
+                this.size = 18;
+                this.color = enemyColors[Math.floor(Math.random() * enemyColors.length)];
+                this.lastShot = 0;
+                this.health = 1;
+                this.targetAngle = 0;
+                this.target = null; // Can target player or other tanks
+            }
+
+            findNearestTarget() {
+                let nearestTarget = player;
+                let nearestDistance = this.getDistanceTo(player);
+                
+                // Check all other enemies
+                for (let enemy of enemies) {
+                    if (enemy === this) continue;
+                    
+                    let distance = this.getDistanceTo(enemy);
+                    if (distance < nearestDistance) {
+                        nearestDistance = distance;
+                        nearestTarget = enemy;
+                    }
+                }
+                
+                this.target = nearestTarget;
+                return nearestDistance;
+            }
+            
+            getDistanceTo(target) {
+                const dx = target.x - this.x;
+                const dy = target.y - this.y;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+
+            update() {
+                // Find nearest target (player or other enemy)
+                const distance = this.findNearestTarget();
+                
+                const dx = this.target.x - this.x;
+                const dy = this.target.y - this.y;
+                
+                // Calculate angle to target
+                this.targetAngle = Math.atan2(dy, dx);
+                
+                // Rotate toward target
+                let angleDiff = this.targetAngle - this.angle;
+                while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
+                while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
+                
+                this.angle += angleDiff * 0.02;
+                
+                // Move toward target if it's far, back away if too close
+                if (distance > 120) {
+                    this.speed = Math.min(this.speed + 0.1, this.maxSpeed);
+                } else if (distance < 80) {
+                    this.speed = Math.max(this.speed - 0.1, -this.maxSpeed * 0.5);
+                } else {
+                    this.speed *= 0.95;
+                }
+                
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
+                
+                // Keep in bounds
+                this.x = Math.max(this.size, Math.min(canvas.width - this.size, this.x));
+                this.y = Math.max(this.size, Math.min(canvas.height - this.size, this.y));
+                
+                // Shoot at target occasionally
+                if (Date.now() - this.lastShot > 1500 + Math.random() * 2000 && distance < 250) {
+                    this.shoot();
+                    this.lastShot = Date.now();
+                }
+            }
+
+            shoot() {
+                enemyBullets.push(new Bullet(this.x, this.y, this.angle, '#ff6b7a', false));
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                
+                // Tank body
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+                
+                // Tank barrel
+                ctx.fillRect(this.size/2 - 2, -3, this.size/2, 6);
+                
+                // Tank direction indicator
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(this.size/3, -2, 8, 4);
+                
+                ctx.restore();
+            }
+        }
+
+        // Bullet class
+        class Bullet {
+            constructor(x, y, angle, color = '#ffff00', isPlayer = true) {
+                this.x = x;
+                this.y = y;
+                this.angle = angle;
+                this.speed = 8;
+                this.color = color;
+                this.isPlayer = isPlayer;
+                this.size = 3;
+                this.life = 0;
+                this.maxLife = 120; // 2 seconds at 60fps
+            }
+
+            update() {
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
+                this.life++;
+                
+                // Remove if out of bounds or too old
+                return this.x < 0 || this.x > canvas.width || 
+                       this.y < 0 || this.y > canvas.height || 
+                       this.life > this.maxLife;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x - this.size/2, this.y - this.size/2, this.size, this.size);
+            }
+        }
+
+        // Input handling
+        document.addEventListener('keydown', (e) => {
+            keys[e.code] = true;
+        });
+
+        document.addEventListener('keyup', (e) => {
+            keys[e.code] = false;
+        });
+
+        // Collision detection
+        function checkCollision(obj1, obj2) {
+            const dx = obj1.x - obj2.x;
+            const dy = obj1.y - obj2.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            return distance < (obj1.size/2 + obj2.size/2);
+        }
+
+        // Spawn enemy
+        function spawnEnemy() {
+            let x, y;
+            // Spawn at edges
+            if (Math.random() < 0.5) {
+                x = Math.random() < 0.5 ? 0 : canvas.width;
+                y = Math.random() * canvas.height;
+            } else {
+                x = Math.random() * canvas.width;
+                y = Math.random() < 0.5 ? 0 : canvas.height;
+            }
+            enemies.push(new Tank(x, y));
+        }
+
+        // Draw tank
+        function drawTank(tank) {
+            ctx.save();
+            ctx.translate(tank.x, tank.y);
+            ctx.rotate(tank.angle);
+            
+            // Tank body
+            ctx.fillStyle = tank.color;
+            ctx.fillRect(-tank.size/2, -tank.size/2, tank.size, tank.size);
+            
+            // Tank barrel
+            ctx.fillRect(tank.size/2 - 2, -3, tank.size/2, 6);
+            
+            // Tank direction indicator
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(tank.size/3, -2, 8, 4);
+            
+            ctx.restore();
+        }
+
+        // Game loop
+        function gameLoop() {
+            if (!gameRunning) return;
+
+            // Clear canvas
+            ctx.fillStyle = 'rgba(15, 52, 96, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Handle input
+            if (keys['ArrowUp']) {
+                player.speed = Math.min(player.speed + player.acceleration, player.maxSpeed);
+            } else if (keys['ArrowDown']) {
+                player.speed = Math.max(player.speed - player.acceleration, -player.maxSpeed/2);
+            }
+
+            if (keys['ArrowLeft']) {
+                player.angle -= 5 * Math.PI / 180; // 5 degrees in radians
+            }
+            if (keys['ArrowRight']) {
+                player.angle += 5 * Math.PI / 180;
+            }
+
+            if (keys['Space']) {
+                // Limit shooting rate
+                if (!player.lastShot || Date.now() - player.lastShot > 200) {
+                    bullets.push(new Bullet(player.x, player.y, player.angle));
+                    player.lastShot = Date.now();
+                }
+            }
+
+            // Apply friction
+            player.speed *= player.friction;
+
+            // Update player position
+            player.x += Math.cos(player.angle) * player.speed;
+            player.y += Math.sin(player.angle) * player.speed;
+
+            // Keep player in bounds
+            player.x = Math.max(player.size, Math.min(canvas.width - player.size, player.x));
+            player.y = Math.max(player.size, Math.min(canvas.height - player.size, player.y));
+
+            // Spawn enemies
+            const now = Date.now();
+            if (now - lastEnemySpawn > (10000 + Math.random() * 5000)) {
+                spawnEnemy();
+                lastEnemySpawn = now;
+            }
+
+            // Update enemies
+            enemies.forEach(enemy => enemy.update());
+
+            // Update bullets
+            for (let i = bullets.length - 1; i >= 0; i--) {
+                if (bullets[i].update()) {
+                    bullets.splice(i, 1);
+                }
+            }
+
+            // Update enemy bullets
+            for (let i = enemyBullets.length - 1; i >= 0; i--) {
+                if (enemyBullets[i].update()) {
+                    enemyBullets.splice(i, 1);
+                }
+            }
+
+            // Check bullet-enemy collisions
+            for (let i = bullets.length - 1; i >= 0; i--) {
+                for (let j = enemies.length - 1; j >= 0; j--) {
+                    if (checkCollision(bullets[i], enemies[j])) {
+                        bullets.splice(i, 1);
+                        enemies.splice(j, 1);
+                        score += 100;
+                        break;
+                    }
+                }
+            }
+
+            // Check enemy bullet collisions (with player and other enemies)
+            for (let i = enemyBullets.length - 1; i >= 0; i--) {
+                let bulletHit = false;
+                
+                // Check collision with player
+                if (checkCollision(enemyBullets[i], player)) {
+                    gameRunning = false;
+                    alert(`Game Over! Final Score: ${score}`);
+                    location.reload();
+                    return;
+                }
+                
+                // Check collision with other enemies
+                for (let j = enemies.length - 1; j >= 0; j--) {
+                    if (checkCollision(enemyBullets[i], enemies[j])) {
+                        enemyBullets.splice(i, 1);
+                        enemies.splice(j, 1);
+                        score += 50; // Less points for enemy kills
+                        bulletHit = true;
+                        break;
+                    }
+                }
+            }
+
+            // Check enemy-player collisions
+            for (let enemy of enemies) {
+                if (checkCollision(enemy, player)) {
+                    gameRunning = false;
+                    alert(`Game Over! Final Score: ${score}`);
+                    location.reload();
+                    return;
+                }
+            }
+
+            // Draw everything
+            drawTank(player);
+            enemies.forEach(enemy => enemy.draw());
+            bullets.forEach(bullet => bullet.draw());
+            enemyBullets.forEach(bullet => bullet.draw());
+
+            // Draw arena border
+            ctx.strokeStyle = '#16213e';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+            // Update UI
+            scoreElement.textContent = score;
+            enemiesElement.textContent = enemies.length;
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Start game
+        function initGame() {
+            // Spawn 4 initial enemy tanks at different positions
+            spawnEnemy(); // Top edge
+            spawnEnemy(); // Random edge
+            spawnEnemy(); // Random edge 
+            spawnEnemy(); // Random edge
+            
+            gameLoop();
+        }
+        
+        initGame();
+    </script>
+</body>
+</html>

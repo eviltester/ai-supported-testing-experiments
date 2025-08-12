@@ -63,7 +63,7 @@ Selecting the `characters` input field in the elements I then asked the AI Assis
 Create code to run in the Javascript console to enter the string "Aabbccd" into the characters field. Then press the "Check Input" button. Then check that the validation_message field shows the value "Valid".
 ```
 
-First it anallyzed the prompt:
+First it analyzed the prompt:
 
 ```
 * Its selector is `input[type="text"]`
