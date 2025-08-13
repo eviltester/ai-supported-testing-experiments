@@ -40,7 +40,13 @@ https://claude.ai/share/77ad5213-83b6-43f0-8295-c401598caee6
    - enhance
 
 
-hint: when viewing any of the html files on Github prefix them with `https://htmlpreview.github.io/?` to use it in a browser.
+hints:
+
+- when viewing any of the html files on Github prefix them with `https://htmlpreview.github.io/?` to use it in a browser.
+- if you want to compare the generated code then you can use the raw urls e.g. `https://raw.githubusercontent.com/eviltester/ai-supported-testing-experiments/refs/heads/main/claude.ai/tanks-game/010/tank_game-010.html`
+   - in tools like
+      - https://textcompare.io
+      - https://www.diffnow.com
 
 ## 001 - create a basic game
 
