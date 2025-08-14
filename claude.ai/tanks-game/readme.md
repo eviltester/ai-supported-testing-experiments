@@ -8,9 +8,24 @@ The code has long vanished into the old computer code void.
 
 Since claude is promoted as being good for code generation. Let's try it.
 
-On the free plan.
+On the free plan, I had to split the coding across multiple chat sessions:
 
-https://claude.ai/share/77ad5213-83b6-43f0-8295-c401598caee6
+- Chat 1 - https://claude.ai/share/77ad5213-83b6-43f0-8295-c401598caee6
+- Chat 2 - https://claude.ai/share/c7855cff-59a9-4b2a-9109-4bfb89f46ee5
+- Chat 3 - https://claude.ai/share/01b0e3ae-e07a-42fa-ae85-f99c83e00b27
+
+The prompt output will be stored in 001-013 for chat 1
+
+Then each follow on chat is numbered starting with the chat e.g. chat 2 is 201-208 etc.
+
+I didn't realise I was going to run out of space in the chat when I started.
+
+Generally, vibe coding long term in the chat is a real pain.
+
+- Have to save out the code to switch between chats when the chat becomes full
+- Switching between chats changes the flow.
+- Long term - console or IDE based vibe coding would be the way forward.
+
 
 - **20250812 15:20 - Session 1 - create basic game**
    - Could only use 5 prompts in the free version before running out of tokens
@@ -19,10 +34,10 @@ https://claude.ai/share/77ad5213-83b6-43f0-8295-c401598caee6
    - there are additional bugs in this version in that the title screen does not fully render
    - But... I'm quite impressed to have got this far in about 20 minutes
    - [Playable - 001](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/001/tank_game.html)
-   - [Playable - 002](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/002/tank_game-002.html)
-   - [Playable - 003](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/003/tank_game-003.html)
-   - [Playable - 004](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/004/tank_game-004.html)
-   - [Broken - 005](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/005/tank_game-005.html)
+   - [Playable - 002](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/002/tank_game.html)
+   - [Playable - 003](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/003/tank_game.html)
+   - [Playable - 004](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/004/tank_game.html)
+   - [Broken - 005](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/005/tank_game.html)
    - [Playable with manual fix - 005](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/005/tank_game-005-manual-fix.html)
 - **20250812 20:30 - Sesssion 2 - try to fix intro sreen**
    - my free plan refreshed, but every request triggered a 500 error and is seemed like there are too many people using claude so the free plan is limited.
@@ -33,17 +48,28 @@ https://claude.ai/share/77ad5213-83b6-43f0-8295-c401598caee6
    - retried 005, then 006-010
    - 006 - 010 were broken
    - fortunately 010 worked. Claude claimed to have rewritten the code from scratch to fix this.
-   - [Playable - 010](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/010/tank_game-010.html)
+   - [Playable - 010](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/010/tank_game.html)
    - rewriting from scratch is not a normal thing for a programmer to do - is this how AI tools write code? Throw it away and rewrite.
-- TODO:
-   - add a game over screen
-   - enhance
+- **20250813 18:00 - Session 4 - game over screen**
+   - 011 - 013 created broken game over screen that took multiple prompts to fix
+   - had to move to a new chat https://claude.ai/share/c7855cff-59a9-4b2a-9109-4bfb89f46ee5
+   - sessions will now be number 201 etc. where 2 is the chat
+   - 201 - exported the generated code as html into new chat and re-prompted
+   - 201 - 204 fixing the game over screen
+      - [Playable - 204](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/204/tank_game.html)
+   - 205 - add 3 lives
+       - [Playable - 205](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/205/tank_game.html)
+   - 205 - 207 add gamepad support
+       - [Playable - 207](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/207/tank_game.html)
+- **20250814 09:30 - Session 5 - new chat - game level advances**
+   - new chat - https://claude.ai/share/01b0e3ae-e07a-42fa-ae85-f99c83e00b27
+
 
 
 hints:
 
 - when viewing any of the html files on Github prefix them with `https://htmlpreview.github.io/?` to use it in a browser.
-- if you want to compare the generated code then you can use the raw urls e.g. `https://raw.githubusercontent.com/eviltester/ai-supported-testing-experiments/refs/heads/main/claude.ai/tanks-game/010/tank_game-010.html`
+- if you want to compare the generated code then you can use the raw urls e.g. `https://raw.githubusercontent.com/eviltester/ai-supported-testing-experiments/refs/heads/main/claude.ai/tanks-game/010/tank_game.html`
    - in tools like
       - https://textcompare.io
       - https://www.diffnow.com
@@ -66,7 +92,7 @@ The game starts immediately when loaded. Try to survive as long as possible whil
 
 > Amend the game so that it starts with 4 enemy tanks generated on screen. And the enemy tanks should generate with different colours. And the enemy tanks will shoot at each other as well as the player.
 
-[Playable](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/002/tank_game-002.html)
+[Playable](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/002/tank_game.html)
 
 ---
 
@@ -84,7 +110,7 @@ When the game starts the tanks die. I think they are shooting themselves
 
 > Tanks should not be able to shoot themselves. The trails left behind by the tanks should completely fade away. Player should only get points when they shoot an enemy tank.
 
-[Playable](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/003/tank_game-003.html)
+[Playable](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/003/tank_game.html)
 
 ---
 
@@ -98,7 +124,7 @@ The game now has cleaner mechanics and visuals while maintaining the chaotic mul
 
 > Bullets should only have a range of  a quarter of the screen width. Bullets should travel at half their current speed. When a bullet reaches the end of the range or hits something it should explode in a coloured particle storm.
 
-[Playable](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/004/tank_game-004.html)
+[Playable](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/004/tank_game.html)
 
 ---
 
@@ -112,7 +138,7 @@ The game now has much more satisfying combat with beautiful particle effects tha
 
 > Create an intro screen which shows the game name as "Angry Tank Arena".  Explain the game basics and show keys with explanations of what they do. The player should press Space to start the game.
 
-[Playable](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/005/tank_game-005.html)
+[Playable](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/005/tank_game.html)
 
 The AI generated version is broken - not sure if that is because I ran out of tokens?
 
@@ -157,7 +183,7 @@ Then I had to issue a bunch of "fix it please" prompts.
 
 final version 23
 
-[Broken](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/006/tank_game-006.html)
+[Broken](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/006/tank_game.html)
 
 Claude.ai confidently said that it knew what the issue was, edited the code, proclaimed it fixed. And then it didn't work.
 
@@ -177,7 +203,7 @@ The intro screen should now be visible when you load the page, and pressing Spac
 
 final version 25
 
-[Broken](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/007/tank_game-007.html)
+[Broken](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/007/tank_game.html)
 
 Claude.ai confidently said that it knew what the issue was, edited the code, proclaimed it fixed. And then it didn't work.
 
@@ -199,7 +225,7 @@ The intro screen should now be visible immediately when you load the page, and p
 
 final version 28
 
-[Broken](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/008/tank_game-008.html)
+[Broken](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/008/tank_game.html)
 
 
 Claude.ai confidently said that it knew what the issue was, edited the code, proclaimed it fixed. And then it didn't work.
@@ -227,7 +253,7 @@ This will help us identify exactly where the issue is. The intro screen should n
 
 final version 30
 
-[Broken](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/009/tank_game-009.html)
+[Broken](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/009/tank_game.html)
 
 Claude.ai confidently knows what the problem is and will fix it. But stating "The issue was likely that" does not fill me with confidence that Claude had identified the issue. **And it had not.**
 
@@ -251,7 +277,7 @@ The intro screen should now be clearly visible with white text on the blue backg
 
 final version 31
 
-[Playable - 010](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/010/tank_game-010.html)
+[Playable - 010](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/010/tank_game.html)
 
 And again with the "the problem is likely". More likely that Claude is hacking about. But there is some hope "Let me completely rewrite this with a simpler, more reliable approach".
 
@@ -263,3 +289,201 @@ Fortunately it did create working code.
 
 I see the issue! The problem is likely that the game loop isn't starting properly or there's a fundamental issue with the setup. Let me completely rewrite this with a simpler, more reliable approach:
 
+## 011 - Create Game Over Screen
+
+> When the player dies, create an end screen with "Game Over" and which shows the score. It should animate "Game Over" for at least 2 seconds. No keyboard input should be valid during those two seconds to prevent the user leaving the end screen to quickly. It should also have fireworks in the background. The "Game Over" screen should show for 15 seconds maximum but can also be cleared when the space key is pressed. After clearing the "Game Over" screen the player should be returned to the intro screen.
+
+**And, just like the intro screen, it doesn't work**
+
+final version 39
+
+---
+
+Perfect! I've implemented a comprehensive game over screen with all the requested features:
+
+...
+
+The game over experience is now much more polished with beautiful fireworks and smooth animations!
+
+
+## 012 - Show Game Over Screen
+
+> The Game Over Screen is not displayed to the user, and it is not possible to press space to return to the intro screen. Fix this.
+
+final version 42
+
+---
+
+I see the issue! The game over screen logic isn't working properly. Let me fix this by debugging and correcting the game loop flow:
+
+I've added debug logs to help identify the issue. The main problem was that the game loop structure wasn't complete. Now when you:
+
+...
+
+Debug log shows "Game over triggered"
+
+## 013 - 201 - Had to move to a new chat
+
+The chat reached maximum length.
+
+Exported the code and HTML into a new chat.
+
+> This code was generated by claude.ai to create a tank game. But the game over screen does not show. Claude.ai added some debug logs, but when the game is over and the player dies, the debug logging show "Game over triggered" but the game over screen is not displayed. What we want is When the player dies, create an end screen with "Game Over" and which shows the score. It should animate "Game Over" for at least 2 seconds. No keyboard input should be valid during those two seconds to prevent the user leaving the end screen to quickly. It should also have fireworks in the background. The "Game Over" screen should show for 15 seconds maximum but can also be cleared when the space key is pressed. After clearing the "Game Over" screen the player should be returned to the intro screen.
+
+---
+
+Looking at your tank game code, I can see the issue. The game over screen logic is implemented but there's a problem in the game loop flow. When gameOverScreen() is called, it sets the flags correctly, but the game loop continues processing the running game state instead of showing the game over screen.
+Let me fix this by updating the game loop structure:
+
+...and "You've reached the limit for Claude messages at this time. Please wait before trying again. Or consider upgrading to Claude Pro"
+
+_You are out of free messages until 7:00 PM_
+
+**I was able to [continue] at 7PM**
+
+But screen still not shown.
+
+Chat 2 - version 2
+
+## 202 - Fix Game Over Screen
+
+> The game over screen is not  displayed but I see console messages "Game Over triggered!", then "Returning to intro" then "Starting game", but nothing is visible on screen.
+
+Chat 2 - version 6
+
+---
+
+I see the issue! The game is immediately transitioning from game over back to intro and then starting again without showing the game over screen. This is happening because the game loop logic isn't properly handling the state transitions. Let me fix this:
+
+...
+
+The game over screen should now be visible!
+
+**And it was.**
+
+## 203 - Remove Debug Console Logs
+
+I'm now going to start prompting in much smaller chunks to see what happens.
+
+> Please remove all the console debug messages
+
+chat 2 - version 10
+
+_For some reason it created 4 code versions to remove all console log messages. That seems excessive._
+
+---
+
+All debug console messages have been removed from the code. The game should now run cleanly without any console output cluttering the browser's developer console.
+
+## 204 - Add 3 lives
+
+> Now give the player 3 lives.
+
+chat 2 version 19
+
+---
+
+Perfect! I've implemented a 3-lives system for the player. Here are the key changes:
+
+...
+
+The player now has more survivability and the game is more forgiving, while still maintaining the challenge! The respawn system gives players a fighting chance to recover and continue their high score run.
+
+
+## 205 - Add Gamepad Support
+
+> Now add Gamepad support in addition to keyboard controls. On the gamepad up, down, left and right do the same as the cursor keys. On the gamepad button 0 should do the same as the space key.
+
+chat 2 - version 31
+
+---
+
+Perfect! I've added full gamepad support to the tank game. Here are the key features added:
+
+...
+
+The game now supports both keyboard and gamepad controls simultaneously, making it accessible to players who prefer either input method!
+
+**I tested it and the game wasn't working due to gamepad. I saw an exception in the console about permissions. I saved the HTML off to local disk and it ran there without exception. But the gamepad still wasn't working. When I started the game with the space bar, the gamepad was available in game, but not in the game overscreen.**
+
+I decided to treat these as two issues and fix separately:
+
+- get gamepad working on intro and outro screen
+- prevent gamepad permissions from stopping the game from working
+
+## 206 - Get Gamepad working
+
+> The A button on the gamepad works in game, but does not work on the title intro screen, nor does it work on the game over screen. Currently only space works on the title screen and only space works on the end screen.
+
+Chat 2 - Version 32
+
+---
+
+You're right! The issue is that the gamepad polling (updateGamepad()) is only being called during the main game loop, not on the intro or game over screens. Let me fix this:
+
+...
+
+Now the gamepad A button should work consistently across all screens, just like the space key does!
+
+## 207 - Try Catch Gamepad Exception
+
+> Now, catch the exception for SecurityError when gamepad is disallowed by permissions policy. The game should still render all screens and be playable by keyboard when this happens.
+
+Chat 2 - version 33
+
+---
+
+Perfect! I've added proper exception handling for gamepad permissions. Here's what the fix does:
+
+...
+
+Now the game is robust against gamepad permission restrictions and will work perfectly in environments where gamepad access is disabled by security policies, while still providing the enhanced experience when gamepad access is available.
+
+
+## 208 - Reduce Spawn Time
+
+I've noticed that it takes too long for new enemies to spawn. So I want to change that.
+
+> Each time a tank is shot, reduce the re-spawn time by half a second. The re-spawn time should never go lower than half a second.
+
+Chat 2 - version 38
+
+---
+
+Perfect! I've implemented the escalating difficulty system. Here's what I added:
+
+...
+
+
+This creates a natural difficulty curve where skilled players who survive longer face increasingly challenging scenarios, making high scores more rewarding and the game more exciting as it progresses!
+
+---
+
+And... I didn't really think this through. It's actually hard to know if it is increasing, I should have done this after I introduced the concept of levels I think.
+
+## 209 - Add Levels - end of chat - failed
+
+> Introduce the concept of levels. We start on level 1. When all enemy tanks are destroyed we advance a level. When we advance a level display the Message "Level Complete", make the message rotate and sparkle. The message should display for 2 seconds. When the next level starts add one more enemy tank and reduce the spawn interval.
+
+And... I got errors, claude reached the maximum length of a message and I reached maximum length of the chat.
+
+Chat 2 - version 56
+
+The code is throwing syntax errors, and when I click to the browser the entire claude UI crashes.
+
+I'll have to:
+
+- export last working code
+- start a new chat
+- imiport last working code into prompt and try again
+
+
+## 301 - Add Levels
+
+New Chat
+
+> This code was generated by claude.ai to create a tank game. Introduce the concept of levels. We start on level 1. When all enemy tanks are destroyed we advance a level. When we advance a level display the Message "Level Complete", make the message rotate and sparkle. The message should display for 2 seconds. When the next level starts add one more enemy tank and reduce the spawn interval.
+
+---
+
+I have reached the limit for claude messages... try later.
