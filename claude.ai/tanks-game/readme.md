@@ -376,6 +376,8 @@ The game over screen should now be visible!
 
 **And it was.**
 
+[Playable - 201](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/013-201/tank_game.html)
+
 ## 203 - Remove Debug Console Logs
 
 I'm now going to start prompting in much smaller chunks to see what happens.
@@ -389,6 +391,8 @@ _For some reason it created 4 code versions to remove all console log messages. 
 ---
 
 All debug console messages have been removed from the code. The game should now run cleanly without any console output cluttering the browser's developer console.
+
+[Playable - 203](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/203/tank_game.html)
 
 ## 204 - Add 3 lives
 
@@ -404,6 +408,7 @@ Perfect! I've implemented a 3-lives system for the player. Here are the key chan
 
 The player now has more survivability and the game is more forgiving, while still maintaining the challenge! The respawn system gives players a fighting chance to recover and continue their high score run.
 
+[Playable - 204](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/204/tank_game.html)
 
 ## 205 - Add Gamepad Support
 
@@ -426,6 +431,8 @@ I decided to treat these as two issues and fix separately:
 - get gamepad working on intro and outro screen
 - prevent gamepad permissions from stopping the game from working
 
+[Playable - 205](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/203/tank_game.html)
+
 ## 206 - Get Gamepad working
 
 > The A button on the gamepad works in game, but does not work on the title intro screen, nor does it work on the game over screen. Currently only space works on the title screen and only space works on the end screen.
@@ -439,6 +446,8 @@ You're right! The issue is that the gamepad polling (updateGamepad()) is only be
 ...
 
 Now the gamepad A button should work consistently across all screens, just like the space key does!
+
+[Playable - 206](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/206/tank_game.html)
 
 ## 207 - Try Catch Gamepad Exception
 
@@ -454,6 +463,7 @@ Perfect! I've added proper exception handling for gamepad permissions. Here's wh
 
 Now the game is robust against gamepad permission restrictions and will work perfectly in environments where gamepad access is disabled by security policies, while still providing the enhanced experience when gamepad access is available.
 
+[Playable - 207](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/207/tank_game.html)
 
 ## 208 - Reduce Spawn Time
 
@@ -462,6 +472,8 @@ I've noticed that it takes too long for new enemies to spawn. So I want to chang
 > Each time a tank is shot, reduce the re-spawn time by half a second. The re-spawn time should never go lower than half a second.
 
 Chat 2 - version 38
+
+[Playable - 208](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/208/tank_game.html)
 
 ---
 
@@ -538,6 +550,8 @@ Chat 3 - v 3
 
 **That worked**
 
+[Playable - 302](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/302/tank_game.html)
+
 We should add some sounds.
 
 ## 303 - add shooting sounds
@@ -558,6 +572,8 @@ Perfect! I've added sound effects for shooting with the following features:
 
 The audio system initializes when you first press a key or button, which is required by modern web browsers for security reasons.
 
+[Playable - 303](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/303/tank_game.html)
+
 ## 304 - add gameover sound
 
 > When the game over screen is initially shown play a short 2-3 second downwards sequence of notes.
@@ -576,6 +592,8 @@ Perfect! I've added a game over sound that plays a melancholic descending sequen
 
 The sound creates a dramatic, melancholic effect that enhances the emotional impact of losing the game, while the descending musical phrase reinforces the "falling/failing" theme of game over!
 
+[Playable - 304](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/304/tank_game.html)
+
 ## 305 - end of level sound
 
 > When the next level sequence is shown play a swirly upwards set of notes.
@@ -592,6 +610,7 @@ Perfect! I've added a celebratory level complete sound that plays an ascending, 
 
 The sound creates an uplifting, magical effect that reinforces the achievement of completing a level, with the swirly vibrato adding a whimsical, celebratory quality that matches the visual sparkles and rotating text!
 
+[Playable - 305](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/305/tank_game.html)
 
 ## 306 - game start sound
 
@@ -609,6 +628,8 @@ Perfect! I've added a triumphant "going into battle" fanfare that plays when the
 
 The sound creates an epic, heroic moment when transitioning from the menu to gameplay, like a battle horn calling troops to charge into the tank arena! It perfectly captures the excitement of starting a new game and entering the battlefield.
 
+[Playable - 306](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/306/tank_game.html)
+
 ## 307 - life lost sound
 
 > Can you add a low explosion noise when the player loses a life
@@ -623,6 +644,8 @@ Perfect! I've added a realistic low explosion sound that plays whenever the play
 
 The explosion sound adds significant impact and feedback when the player takes damage, making hits feel much more dramatic and satisfying. The low rumbling frequency range makes it feel like a proper tank explosion rather than a small pop!
 
+[Playable - 307](https://htmlpreview.github.io/?https://github.com/eviltester/ai-supported-testing-experiments/blob/main/claude.ai/tanks-game/307/tank_game.html)
+
 ### 308 extra life every 1500 points
 
 > Everytime the player gains another 1500 points, give the player an extra life and make a short bell ring sound.
@@ -633,6 +656,7 @@ _out of credits- wait till later_
 TODO: 
 
 - add power ups - enemies not allowed to pick these up, speed up, longer shots, invulnerability - last for random time between 20 and 30 seconds, hear beep beep when they are about to be lost?
+- wasd as additional up, left, down, right keys
 - add bombs which are dropped when enemy is hit - explode after a few seconds with a larger blast radius
 - add craters when explode to create terrain obstacles - allow these to fade away
 - allow enemies to pick up power ups in later levels e.g. from level 20 onwards?
