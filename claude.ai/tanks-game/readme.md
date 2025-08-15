@@ -17,6 +17,8 @@ On the free plan, I had to split the coding across multiple chat sessions:
 - chat 5 - https://claude.ai/share/42e2ed0f-b23a-4805-a85c-de6761ba7955
 - chat 6 - https://claude.ai/share/39c6bbdb-8469-4f42-96bd-cb30d59e55da
 
+**Major issue noticed after finishing - some of these chats are empty. They have lost the prompts and the results of the prompts. They have also lost the versioned artifacts. Fortunately I downloaded all working artifacts and kept track of the prompts, but I can't rely on the chat history to story the chat history.**
+
 The prompt output will be stored in 001-013 for chat 1
 
 Then each follow on chat is numbered starting with the chat e.g. chat 2 is 201-208 etc.
@@ -117,6 +119,61 @@ hints:
    - in tools like
       - https://textcompare.io
       - https://www.diffnow.com
+
+
+## Experiment
+
+- Try to create a browser based game written in plain JavaScript
+- No game frameworks used
+   - Because I know the basics of how to write simple JavaScript games so I can fix the code if needed
+- Create in small chunks rather than large prompts. Each prompt should result in a working game. To build incrementally and recover from errors.
+   - this is also how I would work if I was a human
+   - this also means that if the process fails I will still have a working game up to the point that it fails
+- Test the output after every iteration
+
+Learning:
+
+- there are limits to the message size in the chat interface which interferes with code generation as the code becomes larger.
+- there are limits on conversation size so I had to create new chat sessions and export the code from one session, then attach it to a new converstion. The AI Tooling didn't seem to have issues picking up again from scratch, so all the context it needs is in the prompt and the code.
+- It is possible to create simple games through the chat interface. But they eventually get too large for this interface to handle.
+- The AI tooling does not spot when it has messed up. A non-working, non-rendering output is still reported as being 'done'.
+- Some fixes which would be simple for a human take a long time for the AI Tooling and I was doubtful at times that it would fix them.
+- It is very hard to review code in the chat interface because there is no in-built diff.
+- The AI Tooling generates 'more' than you ask for, and creates a very visually polished output, which suggests the training is on 'finished' stuff rather than 'the steps in the middle, that lead to finished stuff'.
+- Save your work to disk regularly, because I found that some of my chats were empty and it lost the generated code.
+
+Results:
+
+- Pros:
+   - I did get a game out
+   - It was fun to create this way until an error happened
+   - It was fun to create this way until the game became too large
+
+- Cons:
+   - Every so often the game would be broken - often after adding a new 'screen' (intro screen, end screen). This is probably because the code wasn't structured to handle this easily and the AI Tooling got lost during the process. Repeat prompting did fix this.
+   - More 'versions' were required to create simple features than I would have expected. I suspect the code is 'rewritten' rather than amended, which would also consume more tokens.
+   - As the game code got larger the tooling was more flakey. The output was no longer an HTML game and was completely broken. I think this is due to the message limits on the chat interface.
+   - creating a new conversation and importing the code was a pain.
+   - Eventually the chat process just failed completely.
+   - The chat history can be lost. When I went back and reviewed some of the listed chats, they are incomplete, some of the versions are lost. Fortunately I was saving them to disk after each iteration. But if I hadn't then the code would be lost. The code for verion 503 which is the last I could create through the chat interface is not available to me in the chat interface.
+
+Follow on experiments:
+
+- would need to upgrade to the paid plan and see if that improves the chat experience
+- with the paid plan gain access to the CLI and see if that makes it possible to go further
+- try other code generation tools and compare
+- it might have generated less code if I had used a game framework, perhaps I could get further into the game creation by building on a framework or game library?
+
+
+Vibe Coding pros and cons:
+
+- If it goes wrpong, and you don't know how to fix it, you might be completely stuck.
+- The AI Tooling often took a long time to get unstuck.
+- You end up not reading the code, and not really reading the output, because you want to get on to the 'next' thing.
+- This is not a team sport, particularly in the chat interface, this is one person building it.
+- There are no tests.
+- Given that it says it is 'done' when it clearly isn't, should I trust any of the text output?
+- It's fun until it goes wrong.
 
 ## 001 - create a basic game
 
@@ -925,12 +982,13 @@ All that was generated:
         const bombs = [];
 ```
 
-**And I'm out of messages until 2pm**
+**And I'm out of messages**
 
 I think I have reached the limit that the free chat interface can handle.
 
 Also it created 11 versions of incomplete text.
 
+**This experiment with the claude.ai chat interface vibe coding is complete.**
 
 ----
 
