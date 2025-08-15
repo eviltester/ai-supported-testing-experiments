@@ -167,7 +167,7 @@ Follow on experiments:
 
 Vibe Coding pros and cons:
 
-- If it goes wrpong, and you don't know how to fix it, you might be completely stuck.
+- If it goes wrong, and you don't know how to fix it, you might be completely stuck.
 - The AI Tooling often took a long time to get unstuck.
 - You end up not reading the code, and not really reading the output, because you want to get on to the 'next' thing.
 - This is not a team sport, particularly in the chat interface, this is one person building it.
