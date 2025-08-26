@@ -23,6 +23,17 @@ I expect repeated experiments over time to demonstrate different results. Hopefu
 - https://deepai.org/
 - https://chat.mistral.ai/chat
 - https://claude.ai
+- https://chat.z.ai/
+- https://www.kimi.com/
+- https://chat.qwen.ai/
+- https://aistudio.google.com/prompts/new_chat
+- https://gemini.google.com/app
+- https://poe.com/
+- https://chat.deepseek.com/
+- https://openrouter.ai/ there are free models, can be very hit or miss if they work or not
+- https://www.phind.com/
+- https://lmarena.ai/ (set to one model at a time https://lmarena.ai/?mode=direct)
+
 
 Remember not to put any confidential information in online cloude based tooling. Particularly on free plans, but probably not at all, and remember to check settings in the cloud tools to make sure that you are not allowing someone to review the chats and responses to help train the AI further.
 
@@ -42,3 +53,8 @@ With Gpt4All for general chat:
 
 - Reasoning 1
 - Llama 3b instruct
+
+
+# Useful Links
+
+- [How I Code with AI on a budget/free](https://wuu73.org/blog/aiguide1.html)
