@@ -20,6 +20,8 @@ I asked it to:
 - highlight buttons to be visible on screen
 - how to use JS from playwright to execute code dynamically
 
+Video will be available here: https://youtu.be/ml6fzWfmxZ8
+
 ## Reflections
 
 I primarily wasn't relying on the Chat output, I really just wanted it to generate code, so I wasn't really reading the answers fully.
