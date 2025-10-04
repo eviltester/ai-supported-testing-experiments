@@ -173,7 +173,11 @@
         
 
         // Run the function when the page loads
-        addSearchLinks();
+        const givenTopicAsQ_param = new URL(window.location.href).searchParams.get("q");
+        if(givenTopicAsQ_param!=null){
+            const topic = decodeURIComponent(givenTopicAsQ_param);
+            addTopic(topic);
+        }
 
     </script>
 </body>
