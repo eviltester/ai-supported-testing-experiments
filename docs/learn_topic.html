@@ -40,7 +40,7 @@
 </head>
 <body>
     <h1 id="topicHeading" data-topicname="topicX">Choose a Topic for Questions</h1>
-    <p><button onclick="setTopic()">Choose Topic</button></p>
+    <p><button onclick="setTopic()">Choose Topic</button><span id="shareableLink"></span></p>
     
     <ol id="questionList">
         <li>What is topicX?</li>
@@ -101,6 +101,16 @@
             const moreQuestions = document.getElementById('generateMoreQuestions');
             moreQuestions.innerHTML = '';
             addQuestionSearchLinks(moreQuestions, generateMoreQuestions);
+
+            const share = document.getElementById('shareableLink');
+            share.innerHTML = '';
+            var shareableLinkText = document.createTextNode(" Shareable Link: ");
+            const shareableLink = document.createElement('a');
+            shareableLink.href = window.location.origin + window.location.pathname + "?q=" + encodeURIComponent(topicName);
+            shareableLink.textContent=topicName;
+            share.appendChild(shareableLinkText);
+            share.appendChild(shareableLink);
+
         }
 
         function addSearchLinks() {

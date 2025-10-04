@@ -1,1 +1,4 @@
 - [Learn a Topic Using AI Generated Questions](learn_topic.html)
+   - Examples:
+   - [Learn Exploratory Testing](https://eviltester.github.io/ai-supported-testing-experiments/learn_topic.html?q=Exploratory%20Testing)
+   - [Learn Web Software Testing](https://eviltester.github.io/ai-supported-testing-experiments/learn_topic.html?q=Web%20Software%20Testing)
