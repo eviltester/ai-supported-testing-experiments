@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploratory Testing Questions</title>
+    <description>An experiment in learning using AI</description>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+        }
+        ol {
+            counter-reset: item;
+        }
+        ol > li {
+            margin: 15px 0;
+        }
+        ol ol {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        ol ol li {
+            margin: 5px 0;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="topicHeading" data-topicname="topicX">Choose a Topic for Questions</h1>
+    <p><button onclick="setTopic()">Choose Topic</button></p>
+    
+    <ol id="questionList">
+        <li>What is topicX?</li>
+    </ol>
+
+    <div style="margin-top: 30px;">
+        <label for="moreQuestions" style="display: block; margin-bottom: 10px; font-weight: bold;">More Questions?</label>
+        <p id="generateMoreQuestions"></p>
+        <textarea id="moreQuestions" rows="5" style="width: 100%; padding: 10px; font-family: Arial, sans-serif; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+        <button id="addQuestionsBtn" style="margin-top: 10px; padding: 10px 20px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;" onclick="addNewQuestions()">Add These Questions</button>
+    </div>
+
+    <script>
+
+        function setTopic(){
+            const topic = prompt('Ask Questions about topic:');
+            if(topic != null){
+                addTopic(topic);
+            }
+        }
+
+        function addTopic(topicName){
+            const questions = [
+                "What is topicX?",
+                "Why is topicX important/useful?",
+                "Why do we use topicX?",
+                "When/where is topicX used?",
+                "How does topicX work?",
+                "What are the key principles/concepts of topicX?",
+                "What are common examples of topicX?",
+                "What are the main benefits of topicX?",
+                "What are the main drawbacks of topicX?",
+                "How does topicX differ from similar approaches?",
+                "What skills are needed to do topicX?",
+                "What tools are used for topicX?",
+                "What are common mistakes or challenges with topicX?",
+                "What syllabus would I follow to learn topicX?",
+                "What exercises would I do to gain proficiency with topicX?"
+            ]
+
+            const ol = document.getElementById('questionList');
+            ol.innerHTML = '';
+
+            questions.forEach(question => {
+                const nestedLi = document.createElement('li');
+                var text = document.createTextNode(question.replace("topicX", topicName));
+                nestedLi.appendChild(text);
+                ol.appendChild(nestedLi)
+            })
+
+            addSearchLinks();
+
+            const h1 = document.getElementById('topicHeading');
+            h1.textContent = topicName + " Questions";
+            h1.dataset.topicname = topicName;
+
+            const generateMoreQuestions = "What questions should i ask an expert to learn about " + topicName + "? Provide the list of questions as a single block of text with each question on a new line with no formatting.";
+            const moreQuestions = document.getElementById('generateMoreQuestions');
+            moreQuestions.innerHTML = '';
+            addQuestionSearchLinks(moreQuestions, generateMoreQuestions);
+        }
+
+        function addSearchLinks() {
+            const ol = document.getElementById('questionList');
+            const items = ol.querySelectorAll(':scope > li');
+            
+            items.forEach(item => {
+
+                // Skip if already has a nested list
+                if (item.querySelector('ol')) return;
+
+                const question = item.textContent.trim();
+                
+                
+                const nestedOl = document.createElement('ol');
+                const nestedLi = document.createElement('li');
+
+                addQuestionSearchLinks(nestedLi, question);
+
+                nestedOl.appendChild(nestedLi);
+                item.appendChild(nestedOl);
+            });
+        }
+
+        function addQuestionSearchLinks(parentElement, question){
+
+            const encodedQuestion = encodeURIComponent(question);
+
+            const searchUrls = [
+                ["openai", "https://chat.openai.com/?q="],
+                ["perplexity", "https://www.perplexity.ai/search/new?q="],
+               //["claude", "https://claude.ai/new?q="],
+                ["grok", "https://x.com/i/grok?text="],
+                ["google ai", "https://www.google.com/search?udm=50&aep=11&q="]
+            ]
+
+            searchUrls.forEach(search => {
+                const searchUrl = `${search[1]}${encodedQuestion}`;
+                const link = document.createElement('a');
+                
+                link.href = searchUrl;
+                link.textContent = `[${search[0]}] `;
+                link.target = '_blank';
+                
+                parentElement.appendChild(link);
+            })
+        }
+        
+        function addNewQuestions() {
+            const textarea = document.getElementById('moreQuestions');
+            const ol = document.getElementById('questionList');
+            const lines = textarea.value.split('\n');
+            
+            lines.forEach(line => {
+                const trimmedLine = line.trim();
+                if (trimmedLine) {
+                    const li = document.createElement('li');
+                    li.textContent = trimmedLine;
+                    ol.appendChild(li);
+                }
+            });
+            
+            // Clear the textarea
+            textarea.value = '';
+            
+            // Add search links to the new questions
+            addSearchLinks();
+        }
+
+        
+
+        // Run the function when the page loads
+        addSearchLinks();
+
+    </script>
+</body>
+</html>
