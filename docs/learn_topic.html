@@ -41,6 +41,26 @@
 <body>
     <h1 id="topicHeading" data-topicname="topicX">Choose a Topic for Questions</h1>
     <p><button onclick="setTopic()">Choose Topic</button><span id="shareableLink"></span></p>
+
+    <script>
+        grokConversationId = "";
+    </script>
+
+    <details> <!-- Initial status: closed -->
+        <summary>Existing Conversations</summary>
+        <div style="background-color: #d6fbfb;">
+            <p>By default the links open a new conversation each time.</p>
+            <p>Some of the LLMs support conversations through the query interface.</p>
+            <p>Enter a conversation id below and click [Use Conversation]</p>
+            <ul>
+                <li>
+                    <label for="grokConversationId">GROK : Enter the id shown in the x.com/i/grok url i.e. ?conversation=</label>
+                    <input id="grokConversationId"></input>
+                    <button id="useGrokConversationId" onclick="setGrokConversationId()">Use Conversation</button>
+                </li>
+            </ul>
+        </div>
+    </details>
     
     <ol id="questionList">
         <li>What is topicX?</li>
@@ -54,6 +74,18 @@
     </div>
 
     <script>
+
+        function setGrokConversationId(){
+            const inputField = document.getElementById("grokConversationId");
+            if(inputField){
+                const fieldValue = inputField.value;
+                if(fieldValue && fieldValue!=""){
+                    grokConversationId=fieldValue;
+                    amendExistingGrokLinksToUseConversation(grokConversationId);
+                    alert("Grok configured with conversation id = " + grokConversationId);
+                }
+            }
+        }
 
         function setTopic(){
             const topic = prompt('Ask Questions about topic:');
@@ -135,18 +167,64 @@
             });
         }
 
+        function amendExistingGrokLinksToUseConversation(aGrokConversationId){
+            const ol = document.getElementById('questionList');
+            const items = ol.querySelectorAll(':scope > li a');
+            
+            items.forEach(link => {
+                try {
+                    const href = link.getAttribute('href');
+                    
+                    // Skip if href is empty, a hash only, or javascript:
+                    if (!href || href.startsWith('#') || href.startsWith('javascript:')) {
+                        return;
+                    }
+
+                    // only process grok links
+                    if(!href.includes("x.com/i/grok")){
+                        return;
+                    }
+                    
+                    // Create URL object to properly parse and modify the URL
+                    let url = new URL(href);
+                                        
+                    // Add or update the conversation parameter
+                    url.searchParams.set('conversation', aGrokConversationId);
+                    
+                    // Update the link's href
+                    link.setAttribute('href', url.toString());
+                    
+                } catch (error) {
+                    console.warn('Could not process link:', link.href, error);
+                }
+            });
+        }
+
         function addQuestionSearchLinks(parentElement, question){
 
             const encodedQuestion = encodeURIComponent(question);
+
+            let grokUrl = "https://x.com/i/grok?text=";
+            if(grokConversationId && grokConversationId!=""){
+                grokUrl = "https://x.com/i/grok?conversation=" + grokConversationId + "&text="
+            }
 
             const searchUrls = [
                 ["openai", "https://chat.openai.com/?q="],
                 ["perplexity", "https://www.perplexity.ai/search/new?q="],
                //["claude", "https://claude.ai/new?q="],
-                ["grok", "https://x.com/i/grok?text="],
+                ["grok", grokUrl],
                 ["google ai", "https://www.google.com/search?udm=50&aep=11&q="],
                 ["bing", "https://www.bing.com/chat?sendquery=1&q="]
             ]
+
+            // search urls with existing conversation ids add conversation=id into the param list e.g.
+            // https://x.com/i/grok?conversation=12345&text=
+            // openai ? not sure supports this via GET
+            // perplexity ? don't think it supports this via GET
+            // bing? does not seem to support it
+
+
 
             searchUrls.forEach(search => {
                 const searchUrl = `${search[1]}${encodedQuestion}`;
