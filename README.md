@@ -20,7 +20,6 @@ I expect repeated experiments over time to demonstrate different results. Hopefu
 ## Free to access AI Chat Tooling:
 
 - https://chatgpt.com/
-- https://lambda.chat/
 - https://duck.ai
 - https://grok.com/ 
 - https://www.perplexity.ai/
