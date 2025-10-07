@@ -117,12 +117,8 @@
             ol.innerHTML = '';
 
             questions.forEach(question => {
-                const nestedLi = document.createElement('li');
                 const questionText = question.replace("topicX", topicName);
-                var text = document.createTextNode(questionText);
-                nestedLi.appendChild(text);
-                const copyButton = createCopyButton("copy",questionText);
-                nestedLi.appendChild(copyButton);
+                const nestedLi = createQuestionLi(questionText);
                 ol.appendChild(nestedLi)
             })
 
@@ -148,6 +144,20 @@
 
         }
 
+        function createQuestionLi(questionText){
+            const nestedLi = document.createElement('li');
+                
+            var span = document.createElement('span');
+            span.className = "question"
+            var text = document.createTextNode(questionText);
+            span.appendChild(text);
+            nestedLi.appendChild(span);
+            const copyButton = createCopyButton("copy",questionText);
+            nestedLi.appendChild(copyButton);
+
+            return nestedLi;
+        }
+
         function addSearchLinks() {
             const ol = document.getElementById('questionList');
             const items = ol.querySelectorAll(':scope > li');
@@ -157,8 +167,7 @@
                 // Skip if already has a nested list
                 if (item.querySelector('ol')) return;
 
-                const question = item.textContent.trim();
-                
+                const question = item.getElementsByClassName("question").item(0).textContent.trim();
                 
                 const nestedOl = document.createElement('ol');
                 const nestedLi = document.createElement('li');
@@ -249,14 +258,8 @@
             lines.forEach(line => {
                 const trimmedLine = line.trim();
                 if (trimmedLine) {
-                    const li = document.createElement('li');
-                    li.textContent = trimmedLine;
-                    const copyButton = createCopyButton("copy",trimmedLine);
-                    li.appendChild(copyButton);
-
+                    const li = createQuestionLi(trimmedLine);
                     ol.appendChild(li);
-
-
                 }
             });
             

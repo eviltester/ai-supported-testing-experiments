@@ -11,6 +11,10 @@ This repo is an attempt to document specific time-bound experiments related to A
 I expect repeated experiments over time to demonstrate different results. Hopefully better results.
 
 
+## An Experiment In Self-Directed Learning with AI
+
+- https://eviltester.github.io/ai-supported-testing-experiments/learn_topic.html
+
 # Chat Based Tools to experiment with
 
 ## Free to access AI Chat Tooling:
