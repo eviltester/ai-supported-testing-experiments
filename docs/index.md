@@ -2,3 +2,4 @@
    - Examples:
    - [Learn Exploratory Testing](https://eviltester.github.io/ai-supported-testing-experiments/learn_topic.html?q=Exploratory%20Testing)
    - [Learn Web Software Testing](https://eviltester.github.io/ai-supported-testing-experiments/learn_topic.html?q=Web%20Software%20Testing)
+- [Learn a Topic From an AI Generated Syllabus - Playwright with Java](playwright-syllabus/syllabus-experiment.html)
