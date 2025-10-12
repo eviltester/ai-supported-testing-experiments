@@ -13,7 +13,11 @@ I expect repeated experiments over time to demonstrate different results. Hopefu
 
 ## An Experiment In Self-Directed Learning with AI
 
-- https://eviltester.github.io/ai-supported-testing-experiments/learn_topic.html
+There are a variety of usable self-directed learning interfaces here:
+
+- https://eviltester.github.io/ai-supported-testing-experiments
+
+
 
 # Chat Based Tools to experiment with
 
