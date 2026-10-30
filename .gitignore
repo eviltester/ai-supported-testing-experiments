@@ -1,3 +1,8 @@
 .idea
 **/java-maven/videos
 **/java-maven/target
+codex/pirate-testing/.playwright-cli
+codex/pirate-testing/triangle_instructions.html
+codex/pirate-testing/triangle_page.html
+lightpanda/playwright/node_modules
+lightpanda/playwright/sites.txt

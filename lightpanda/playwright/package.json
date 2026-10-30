@@ -1,0 +1,16 @@
+{
+  "name": "playwright-chrome-checker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website availability checker using Playwright with Chrome or Lightpanda",
+  "main": "check-websites.js",
+  "scripts": {
+    "check": "node check-websites.js"
+  },
+  "dependencies": {
+    "playwright": "^1.54.0"
+  },
+  "optionalDependencies": {
+    "@lightpanda/browser": "^1.2.0"
+  }
+}
